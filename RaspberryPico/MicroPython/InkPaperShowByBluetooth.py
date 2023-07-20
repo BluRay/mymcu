@@ -2,6 +2,7 @@
 import uos
 import machine
 import utime
+import random
 from EPD_2in9_B import EPD_2in9_B
 from font64 import font64
 
@@ -39,6 +40,9 @@ def showstr(font, index, font_num, col_num, start, font_width):
 print(uos.uname())      #列出開發板的資訊
 uart = machine.UART(0, baudrate=9600, tx=machine.Pin(16), rx=machine.Pin(17))
 print(uart)
+
+led = machine.Pin(25, machine.Pin.OUT)	# 处理蓝牙命令时亮灯
+led.value(0)
 rxData = bytes()
 
 '''
@@ -56,22 +60,36 @@ while True:
         #uart.write(cmd)
         print(str(rxData).replace("b\'\\x","").replace('\'',''))
         if (rxData == b'\x00'):		# 清屏
+            led.value(1)
             epd.Clear(0xff, 0xff)
             epd.imageblack.fill(0xff)
             epd.imagered.fill(0xff)
             uart.write('clear done')
-        if (rxData == b'\x99'):		# TODO 随机算术
+            led.value(0)
+        
+        if (rxData == b'\x01'):		# 
+            led.value(1)
+            uart.write('led open')
+        if (rxData == b'\x02'):		# 
+            led.value(0)
+            uart.write('led close')
+            
+        if (rxData == b'\x99'):		# 随机算术
+            led.value(1)
             epd.Clear(0xff, 0xff)
             epd.imageblack.fill(0xff)
             epd.imagered.fill(0xff)
-            chars1 = ['31','2B','32','3D']
+            chars1 = [str(random.randint(31,39)),'2B',str(random.randint(31,39)),'3D']
             strlist1 = font64.getstr(font64, chars1)
             i=0
             for font in strlist1:
                 showstr(font,i,len(strlist1),0,64*1,4)
                 i=i+1
+            led.value(0)
             
         if (rxData == b'\x88'):		# 显示名字
+            led.value(1)
+            uart.write('show name start')
             epd.Clear(0xff, 0xff)
             epd.imageblack.fill(0xff)
             epd.imagered.fill(0xff)
@@ -98,4 +116,5 @@ while True:
                 i=i+1
             
             uart.write('show name done')
+            led.value(0)
             
