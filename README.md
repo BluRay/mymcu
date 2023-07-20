@@ -7,6 +7,9 @@ mcu study &amp; test
 - oled
 - bluetooth
 - inkPaper with bluetooth
+- keybroad_5_4 
+  [参考资料1](https://www.instructables.com/Raspberry-Pi-Pico-4x4-Matrix-Keypad-and-1602-LCD-I/)
+  [参考资料2](https://how2electronics.com/simple-calculator-using-keypad-oled-raspberry-pi-pico/)
 
 ### Esp32
 
@@ -18,10 +21,13 @@ mcu study &amp; test
 - Arduino 
 	arduino-esp32-cam环境配置和例程 https://blog.csdn.net/akk41397/article/details/106419396
 
+### Raspberry 
+ - TODO smarGate 内网穿透
+
 ### Logs
  - 230717 安装Arduino IDE 配置esp环境
    附加开发板管理器中添加网址：https://dl.espressif.com/dl/package_esp32_index.json
    Arduino开发板选择 Ai Thinker ESP32-CAM
    使用示例CameraWebServer 串流成功 问题：发热较严重；清晰度不够；无录音
-   
+ - 230717 闲鱼4B4G(400)   
    
