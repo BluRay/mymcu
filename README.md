@@ -22,7 +22,10 @@ mcu study &amp; test
 	arduino-esp32-cam环境配置和例程 https://blog.csdn.net/akk41397/article/details/106419396
 
 ### Raspberry 
- - TODO smarGate 内网穿透
+ - smarGate 内网穿透 
+ 		适用版本：linux_mini_arm64v0.31.10.tar
+ 		需安装Openssl: sudo apt install libssl-dev libcurl4 libcurl4-openssl-dev
+    后台运行 nohup sudo ./proxy_server -i1000 -o1000 -w8 &
 
 ### Logs
  - 230717 安装Arduino IDE 配置esp环境
