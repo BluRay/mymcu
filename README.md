@@ -2,35 +2,43 @@
 mcu study &amp; test
 
 ### Stm32
+- è“ç‰™é€šè®¯
+- OLED
+- æ¸©æ¹¿åº¦ä¼ æ„Ÿå™¨
+- è¶…å£°æ³¢è·ç¦»ä¼ æ„Ÿå™¨
+
+#### Stm32å¹³è¡¡ä¸¤è½®è½¦
 
 ### Raspberry PICO
 - oled
 - bluetooth
 - inkPaper with bluetooth
 - keybroad_5_4 
-  [²Î¿¼×ÊÁÏ1](https://www.instructables.com/Raspberry-Pi-Pico-4x4-Matrix-Keypad-and-1602-LCD-I/)
-  [²Î¿¼×ÊÁÏ2](https://how2electronics.com/simple-calculator-using-keypad-oled-raspberry-pi-pico/)
+  [å‚è€ƒèµ„æ–™1](https://www.instructables.com/Raspberry-Pi-Pico-4x4-Matrix-Keypad-and-1602-LCD-I/)
+  [å‚è€ƒèµ„æ–™2](https://how2electronics.com/simple-calculator-using-keypad-oled-raspberry-pi-pico/)
 
 ### Esp32
 
 #### Esp32 cam
 - hello
-- ÊÓÆµÍøÂç·şÎñÆ÷ £¨Web Video Stream) 
+- è§†é¢‘ç½‘ç»œæœåŠ¡å™¨ ï¼ˆWeb Video Stream) 
 	https://blog.csdn.net/m0_50614038/article/details/130464482
 	https://github.com/shariltumin/esp32-cam-micropython-2022
 - Arduino 
-	arduino-esp32-cam»·¾³ÅäÖÃºÍÀı³Ì https://blog.csdn.net/akk41397/article/details/106419396
+	arduino-esp32-camç¯å¢ƒé…ç½®å’Œä¾‹ç¨‹ https://blog.csdn.net/akk41397/article/details/106419396
 
-### Raspberry 
- - smarGate ÄÚÍø´©Í¸ 
- 		ÊÊÓÃ°æ±¾£ºlinux_mini_arm64v0.31.10.tar
- 		Ğè°²×°Openssl: sudo apt install libssl-dev libcurl4 libcurl4-openssl-dev
-    ºóÌ¨ÔËĞĞ nohup sudo ./proxy_server -i1000 -o1000 -w8 &
+### Raspberry Pi
+- smarGate å†…ç½‘ç©¿é€ 
+ 		é€‚ç”¨ç‰ˆæœ¬ï¼šlinux_mini_arm64v0.31.10.tar
+ 		éœ€å®‰è£…Openssl: sudo apt install libssl-dev libcurl4 libcurl4-openssl-dev
+    åå°è¿è¡Œ nohup sudo ./proxy_server -i1000 -o1000 -w8 &
+- Gpio
+- ä¸­æ–­
 
 ### Logs
- - 230717 °²×°Arduino IDE ÅäÖÃesp»·¾³
-   ¸½¼Ó¿ª·¢°å¹ÜÀíÆ÷ÖĞÌí¼ÓÍøÖ·£ºhttps://dl.espressif.com/dl/package_esp32_index.json
-   Arduino¿ª·¢°åÑ¡Ôñ Ai Thinker ESP32-CAM
-   Ê¹ÓÃÊ¾ÀıCameraWebServer ´®Á÷³É¹¦ ÎÊÌâ£º·¢ÈÈ½ÏÑÏÖØ£»ÇåÎú¶È²»¹»£»ÎŞÂ¼Òô
- - 230717 ÏĞÓã4B4G(400)   
+ - 230717 å®‰è£…Arduino IDE é…ç½®espç¯å¢ƒ
+   é™„åŠ å¼€å‘æ¿ç®¡ç†å™¨ä¸­æ·»åŠ ç½‘å€ï¼šhttps://dl.espressif.com/dl/package_esp32_index.json
+   Arduinoå¼€å‘æ¿é€‰æ‹© Ai Thinker ESP32-CAM
+   ä½¿ç”¨ç¤ºä¾‹CameraWebServer ä¸²æµæˆåŠŸ é—®é¢˜ï¼šå‘çƒ­è¾ƒä¸¥é‡ï¼›æ¸…æ™°åº¦ä¸å¤Ÿï¼›æ— å½•éŸ³
+ - 230717 é—²é±¼4B4G(400)   
    
