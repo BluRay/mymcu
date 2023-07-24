@@ -28,6 +28,10 @@ mcu study &amp; test
 	arduino-esp32-cam环境配置和例程 https://blog.csdn.net/akk41397/article/details/106419396
 
 ### Raspberry Pi
+- 设置时间服务器和时区
+	+ 安装NTP，输入指令“sudo apt-get install ntpdate ”
+	+ 启用NTP，输入指令“sudo timedatectl set-ntp true”
+	+ 修改本地时区，输入指令“sudo dpkg-reconfigure tzdata”。
 - smarGate 内网穿透 
  		适用版本：linux_mini_arm64v0.31.10.tar
  		需安装Openssl: sudo apt install libssl-dev libcurl4 libcurl4-openssl-dev
