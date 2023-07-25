@@ -32,10 +32,41 @@ mcu study &amp; test
 	+ 安装NTP，输入指令“sudo apt-get install ntpdate ”
 	+ 启用NTP，输入指令“sudo timedatectl set-ntp true”
 	+ 修改本地时区，输入指令“sudo dpkg-reconfigure tzdata”。
+	+ 开机自动设置时区 修改/home/[user]/.profile 增加一行 TZ='Asia/Hong_Kong'; export TZ
 - smarGate 内网穿透 
  		适用版本：linux_mini_arm64v0.31.10.tar
  		需安装Openssl: sudo apt install libssl-dev libcurl4 libcurl4-openssl-dev
     后台运行 nohup sudo ./proxy_server -i1000 -o1000 -w8 &
+    开机自动运行 添加命令到rc.local文件 exit 0 之前
+- 安装Apache2+PHP7.3+Pi Dashboard
+	+ 替换国内源
+	sudo nano /etc/apt/sources.list 进入编辑界面，删除原有的内容，粘贴如下内容： 
+```bash
+deb http://mirrors.aliyun.com/raspbian/raspbian/ bookworm  main non-free contrib rpi
+deb-src http://mirrors.aliyun.com/raspbian/raspbian/ bookworm main non-free contrib rpi
+```
+	如提示公钥错误，需手动配置公钥：sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv [9165938D90FDDD2E]
+	+ 安装软件包（apache2 成功; php 失败）
+```bash
+	 #安装前更新软件 非root账户登录，执行命令前请自行添加sudo
+	apt update
+	apt upgrade
+
+	#查询apache版本
+	apache2 -version
+	#如果没有apache2，则执行命令安装Apache
+	apt install apache2
+
+	#安装php服务
+	apt install php7.3-fpm php7.3-cli php7.3-curl php7.3-gd php7.3-cgi
+
+	#安装libapache2-mod-php7.2，使apache2支持PHP
+	apt install libapache2-mod-php7.3
+	#启动php和apahce
+	systemctl restart php7.3-fpm.service
+	systemctl restart apache2.service
+```
+- Socket
 - Gpio
 - 中断
 
