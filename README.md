@@ -47,24 +47,26 @@ deb-src http://mirrors.aliyun.com/raspbian/raspbian/ bookworm main non-free cont
 ```
 	如提示公钥错误，需手动配置公钥：sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv [9165938D90FDDD2E]
 	+ 安装软件包（apache2 成功; php 失败）
+	安装apache: apt install apache2;systemctl restart apache2.service
+	TODO:手动安装和配置PHP5.6
 ```bash
-	 #安装前更新软件 非root账户登录，执行命令前请自行添加sudo
-	apt update
-	apt upgrade
-
-	#查询apache版本
-	apache2 -version
-	#如果没有apache2，则执行命令安装Apache
-	apt install apache2
-
-	#安装php服务
-	apt install php7.3-fpm php7.3-cli php7.3-curl php7.3-gd php7.3-cgi
-
-	#安装libapache2-mod-php7.2，使apache2支持PHP
-	apt install libapache2-mod-php7.3
-	#启动php和apahce
-	systemctl restart php7.3-fpm.service
-	systemctl restart apache2.service
+	tar -zxvf php-5.6.30.tar.gz 
+	cd php-5.6.30
+	#编译配置
+	./configure --prefix=/usr/local/php  --with-curl=/usr/local/curl  --with-freetype-dir  --with-gd  --with-gettext  --with-iconv-dir  --with-kerberos  --with-libdir=lib64  --with-libxml-dir  --with-mysqli  --with-openssl  --with-pcre-regex  --with-pdo-mysql  --with-pdo-sqlite  --with-pear  --with-png-dir  --with-xmlrpc  --with-xsl  --with-zlib  --enable-fpm  --enable-bcmath  --enable-libxml  --enable-inline-optimization  --enable-mbregex  --enable-mbstring  --enable-opcache  --enable-pcntl  --enable-shmop  --enable-soap  --enable-sockets  --enable-sysvsem  --enable-xml  --enable-zip
+	#编译安装
+	make && make install
+	#配置php
+	cp php.ini-production /usr/local/php/etc/php.ini 
+	#创建php-fpm.conf文件
+	cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+	#配置Apache
+	#修改httpd.conf文件，该文件在conf目录下，例如我是j将apache安装在/usr/local/apache下，所以这个文件应该在/usr/local/apache/conf/httpd.conf
+	#找到：
+	AddType  application/x-compress .Z
+	AddType application/x-gzip .gz .tgz
+	#添加如下内容
+	AddType application/x-httpd-php .php
 ```
 - Socket
 - Gpio
