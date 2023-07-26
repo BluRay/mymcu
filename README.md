@@ -48,26 +48,76 @@ deb-src http://mirrors.aliyun.com/raspbian/raspbian/ bookworm main non-free cont
 	如提示公钥错误，需手动配置公钥：sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv [9165938D90FDDD2E]
 	+ 安装软件包（apache2 成功; php 失败）
 	安装apache: apt install apache2;systemctl restart apache2.service
-	TODO:手动安装和配置PHP5.6
+- Docker
+	[参考教程](https://docker-practice.github.io/zh-cn/install/raspberry-pi.html)
 ```bash
-	tar -zxvf php-5.6.30.tar.gz 
-	cd php-5.6.30
-	#编译配置
-	./configure --prefix=/usr/local/php  --with-curl=/usr/local/curl  --with-freetype-dir  --with-gd  --with-gettext  --with-iconv-dir  --with-kerberos  --with-libdir=lib64  --with-libxml-dir  --with-mysqli  --with-openssl  --with-pcre-regex  --with-pdo-mysql  --with-pdo-sqlite  --with-pear  --with-png-dir  --with-xmlrpc  --with-xsl  --with-zlib  --enable-fpm  --enable-bcmath  --enable-libxml  --enable-inline-optimization  --enable-mbregex  --enable-mbstring  --enable-opcache  --enable-pcntl  --enable-shmop  --enable-soap  --enable-sockets  --enable-sysvsem  --enable-xml  --enable-zip
-	#编译安装
-	make && make install
-	#配置php
-	cp php.ini-production /usr/local/php/etc/php.ini 
-	#创建php-fpm.conf文件
-	cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
-	#配置Apache
-	#修改httpd.conf文件，该文件在conf目录下，例如我是j将apache安装在/usr/local/apache下，所以这个文件应该在/usr/local/apache/conf/httpd.conf
-	#找到：
-	AddType  application/x-compress .Z
-	AddType application/x-gzip .gz .tgz
-	#添加如下内容
-	AddType application/x-httpd-php .php
+# 由于 apt 源使用 HTTPS 以确保软件下载过程中不被篡改。因此，我们首先需要添加使用 HTTPS 传输的软件包以及 CA 证书。
+sudo apt-get install \
+     apt-transport-https \
+     ca-certificates \
+     curl \
+     gnupg2 \
+     lsb-release \
+     software-properties-common
+# 为了确认所下载软件包的合法性，需要添加软件源的 GPG 密钥。
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/raspbian/gpg | sudo apt-key add -
+# 官方源
+# $ curl -fsSL https://download.docker.com/linux/raspbian/gpg | sudo apt-key add -
+
+# 向 sources.list 中添加 Docker 软件源：
+sudo add-apt-repository \
+    "deb [arch=armhf] https://mirrors.aliyun.com/docker-ce/linux/raspbian \
+    $(lsb_release -cs) \
+    stable"
+
+# 官方源
+# $ sudo add-apt-repository \
+#    "deb [arch=armhf] https://download.docker.com/linux/raspbian \
+#    $(lsb_release -cs) \
+#    stable"
+
+curl -fsSL get.docker.com -o get-docker.sh
+sudo sh get-docker.sh --mirror Aliyun
+
+# 镜像加速 创建或修改 /etc/docker/daemon.json 文件，修改为如下形式
+{
+"registry-mirrors": [
+    "https://suyxus8r.mirror.aliyuncs.com",
+    "https://hub-mirror.c.163.com",
+    "https://mirror.baidubce.com"
+  ]
+}
+# 重启服务
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
+hub.docker.com 查找适配合适内核的镜像 
+apache2 + php
+```bash
+docker pull httpd
+docker pull php:7.0.23-fpm
+# 修改 Apache 配置文件 
+# 打开拷贝到宿主机上的 httpd.conf 文件，找到这三个货色，把前面的#号去掉
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_connect_module modules/mod_proxy_connect.so
+LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
+# 注释DocumentRoot "/usr/local/apache2/htdocs" 和 <Directory "/usr/local/apache2/htdocs">...</Directory>
+# 增加配置 docker network inspect bridge 查看php-fpm 容器的ip
+<VirtualHost *:80>
+    ServerAdmin liang@com.cn
+    DocumentRoot "/usr/local/apache2/htdocs"
+    ServerName localhost
+    <Directory "/usr/local/apache2/htdocs">
+     Options None
+     Require all granted
+    </Directory>
+    ProxyRequests Off
+    ProxyPassMatch ^/(.*\.php)$ fcgi://172.17.0.2:9000/php/$1
+</VirtualHost>
+# 启动apache 映射WEB目录和配置文件
+docker run -itd -v /opt/www:/usr/local/apache2/htdocs -v /opt/docker/httpd.conf:/usr/local/apache2/conf/httpd.conf -p 80:80 httpd
+```
+	
 - Socket
 - Gpio
 - 中断
