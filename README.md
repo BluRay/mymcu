@@ -117,7 +117,8 @@ LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
 # 启动apache 映射WEB目录和配置文件
 docker run -itd -v /opt/www:/usr/local/apache2/htdocs -v /opt/docker/httpd.conf:/usr/local/apache2/conf/httpd.conf -p 80:80 httpd
 ```
-	
+- Installing InfluxDB & Grafana on Raspberry Pi
+	https://simonhearne.com/2020/pi-influx-grafana/	
 - Socket
 - Gpio
 - 中断
