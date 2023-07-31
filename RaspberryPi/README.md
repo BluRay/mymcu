@@ -1,6 +1,8 @@
 #### i2c Oled
 - 开启i2c: sudo raspi-config
-- Luma.oled库 [Luma api](https://luma-oled.readthedocs.io/en/latest/api-documentation.html) [教程1](https://blog.csdn.net/qq_46476163/article/details/116395514)
+- Luma.oled库 [Luma api](https://luma-oled.readthedocs.io/en/latest/api-documentation.html) 
+[教程1](https://blog.csdn.net/qq_46476163/article/details/116395514)
+[教程2](https://blog.csdn.net/u011198687/article/details/120347965)
 - TODO
 
 ### RPi.GPIO
