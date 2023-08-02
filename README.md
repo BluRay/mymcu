@@ -42,10 +42,10 @@ mcu study &amp; test
 	+ 替换国内源
 	sudo nano /etc/apt/sources.list 进入编辑界面，删除原有的内容，粘贴如下内容： 
 ```bash
-deb http://mirrors.aliyun.com/raspbian/raspbian/ bullseye  main non-free contrib rpi
+deb http://mirrors.aliyun.com/raspbian/raspbian/ bullseye main non-free contrib rpi
 deb-src http://mirrors.aliyun.com/raspbian/raspbian/ bullseye main non-free contrib rpi
 ```
-	如提示公钥错误，需手动配置公钥：sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv [9165938D90FDDD2E]
+	如提示公钥错误，需手动配置公钥：sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9165938D90FDDD2E
 	+ 安装软件包（apache2 成功; php 失败）
 	安装apache: apt install apache2;systemctl restart apache2.service
 - Docker
