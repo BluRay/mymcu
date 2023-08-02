@@ -87,6 +87,9 @@ sudo sh get-docker.sh --mirror Aliyun
     "https://mirror.baidubce.com"
   ]
 }
+# 建立 docker 用户组 并将当前用户加入 docker 组：
+$ sudo groupadd docker
+$ sudo usermod -aG docker $USER
 # 重启服务
 sudo systemctl daemon-reload
 sudo systemctl restart docker
