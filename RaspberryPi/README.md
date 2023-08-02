@@ -1,10 +1,12 @@
-#### i2c Oled
+### i2c Oled
 - 开启i2c: sudo raspi-config
 - Luma.oled库 [Luma api](https://luma-oled.readthedocs.io/en/latest/api-documentation.html) 
 [教程1](https://blog.csdn.net/qq_46476163/article/details/116395514)
 [教程2](https://blog.csdn.net/u011198687/article/details/120347965)
 - TODO
-
+### ST7735 1.44 寸彩色 TFT 屏幕（SPI 通信）
+[教程1](https://timor.tech/mcu/lcd/rpi-st7735-python.html)
+- TODO
 ### RPi.GPIO
 - https://pypi.org/project/RPi.GPIO/
 - 通过 gpio readall 查看引脚信息
