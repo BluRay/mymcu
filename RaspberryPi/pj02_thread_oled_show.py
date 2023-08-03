@@ -14,6 +14,17 @@ fontCN = ImageFont.truetype("msyh.ttc", 36)
 fontEN = ImageFont.truetype("arial.ttf", 24)
 device.capabilities(128,64,0,'1')
 
+# 获取文本在特定字体下显示的像素宽度
+def getStrWidth(str,font):
+  canvas = Image.new('RGB', (800,600))
+  draw = ImageDraw.Draw(canvas)
+  draw.text((0, 0), str, font=font, outline="black", fill="white")
+  canvas.save("003.jpg")
+  bbox = canvas.getbbox()
+  size = (bbox[2] - bbox[0], bbox[3] - bbox[1])
+  width = bbox[2] - bbox[0]
+  return width
+
 def work():
   global global_msg
   global_msg = ""
