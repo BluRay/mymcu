@@ -83,9 +83,9 @@ def exit():
   for j in range(len( keypad.COLUMN)):
     GPIO.setup( keypad.COLUMN[j],GPIO.IN,pull_up_down=GPIO.PUD_UP)
  
-#key=None
+key=None
  
-#while True:
- #   key=getkey()
-  #  if not key==None:
-   #     print ('You enter the  key:',key)
+while True:
+  key=getkey()
+  if not key==None:
+    print ('You enter the  key:',key)
