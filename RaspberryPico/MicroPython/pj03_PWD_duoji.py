@@ -1,4 +1,5 @@
 ﻿# TODO Raspberry Pi Pico 控制舵机
+# https://www.micropython.org.cn/forum/viewtopic.php?t=2983
 '''
 伺服电机红线连接到 Pico Vbus 引脚（5V）
 伺服电机棕色线连接到 Pico GND
