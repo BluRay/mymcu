@@ -39,7 +39,7 @@ http.createServer( function (request, response) {
         console.log('update success')
       })
       response.writeHead(200, {'Content-Type': 'text/html'});
-      response.write('Config Update Success:' + JSON.stringify(conf_json));
+      response.write(JSON.stringify(conf_json));
       response.end();
     })
   }
