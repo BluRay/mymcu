@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>node_app</title>
+</head>
+<body>
+  <h4>node app config</h4>
+  <input id="config" />
+  <button onclick="getConfig()">Get/Set Config</button><br/>
+  <p id="config_str"></p>
+</body>
+<script>
+console.log("Date: " + new Date());
+function getConfig() {
+  var httpRequest = new XMLHttpRequest();//第一步：建立所需的对象
+  httpRequest.open('GET', '/config' + '?' + document.getElementById('config').value, true);//第二步：打开连接  将请求参数写在url中  ps:"./Ptest.php?name=test&nameone=testone"
+  httpRequest.send();//第三步：发送请求  将请求参数写在URL中
+  httpRequest.onreadystatechange = function () {
+    if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+      var json = httpRequest.responseText;//获取到json字符串，还需解析
+      // alert(json);
+      document.getElementById('config_str').innerHTML = json
+    }
+  };
+}
+</script>
+</html>
