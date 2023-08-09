@@ -37,10 +37,10 @@ http.createServer( function (request, response) {
           return console.error(error);
         }
         console.log('update success')
+        response.writeHead(200, {'Content-Type': 'text/html'});
+        response.write(JSON.stringify(conf_json));
+        response.end();
       })
-      response.writeHead(200, {'Content-Type': 'text/html'});
-      response.write(JSON.stringify(conf_json));
-      response.end();
     })
   }
   //解析POST方法参数
