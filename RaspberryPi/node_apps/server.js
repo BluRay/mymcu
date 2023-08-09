@@ -18,7 +18,7 @@ http.createServer( function (request, response) {
     console.log('-->request:' + JSON.stringify(queryObj))
     
     let conf_json = {}
-    fs.readFile("../pi.conf",function (err,data) {
+    fs.readFile("pi.conf",function (err,data) {
       if(err){
         return console.log(err);
       }else {
@@ -32,7 +32,7 @@ http.createServer( function (request, response) {
           conf_json[c] = queryObj[c]
         }
       })
-      fs.writeFile('../pi.conf', JSON.stringify(conf_json), function(error) {
+      fs.writeFile('pi.conf', JSON.stringify(conf_json), function(error) {
         if (error) {
           return console.error(error);
         }
