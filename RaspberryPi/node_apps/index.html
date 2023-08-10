@@ -7,9 +7,10 @@
 <body>
   <div class="maindiv">
     <h4>NodeAppConfig</h4>
-    <input id="config" style="height:28px" />
-    <button onclick="getConfig()" style="height:28px">Get/Set Config</button><br/>
+    <input id="config" />
+    <button onclick="getConfig()" style="height:32px;">Get/Set Config</button><br/>
     <textarea rows="10" cols="60" id="config_msg" disabled style="font-family: '微软雅黑'"></textarea>
+    <p>Gravity@2023</p>
   </div>
 </body>
 <script>
@@ -39,6 +40,18 @@ function getConfig() {
   border-radius: 5px;
   display: grid;
   place-content: center;
+  align-content: baseline;
+}
+input 
+{
+  height:32px;
+  border-radius:5px;
+  outline:none;
+  border-top-style: groove;
+  border-right-style: groove;
+  border-bottom-style: groove;
+  border-left-style: groove;
+  border:2px solid #a1a1a1;
 }
 </style>
 </html>
