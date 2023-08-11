@@ -10,6 +10,11 @@
     <input id="config" />
     <button onclick="getConfig()" style="height:32px;">Get/Set Config</button><br/>
     <textarea rows="10" cols="60" id="config_msg" disabled style="font-family: '微软雅黑'"></textarea>
+    <div>
+      <button id="ledRed" onclick="setLed('ledRed', '#FF9191')" style="background-color:#FF9191;height:50px;width:32%;">红 Red</button> 
+      <button id="ledYellow" onclick="setLed('ledYellow', '#FFFFB3')" style="background-color:#FFFFB3;height:50px;width:33%;">黄 Yellow</button> 
+      <button id="ledGreen" onclick="setLed('ledGreen', '#91FF91')" style="background-color:#91FF91;height:50px;width:32%;">绿 Green</button>
+    </div>
     <p>Gravity@2023</p>
   </div>
 </body>
@@ -25,11 +30,37 @@ function getConfig() {
   httpRequest.send();
   httpRequest.onreadystatechange = function () {
     if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-      var json = httpRequest.responseText;  //获取到json字符串，还需解析
-      // alert(JSON.stringify(JSON.parse(json), null, '\t'));
+      var json = httpRequest.responseText  //获取到json字符串，还需解析
+      if ('ON' === JSON.parse(json).ledRed) {
+        document.getElementById('ledRed').style.cssText += 'background-color: red'
+      }
+      if ('ON' === JSON.parse(json).ledYellow) {
+        document.getElementById('ledYellow').style.cssText += 'background-color: yellow'
+      }
+      if ('ON' === JSON.parse(json).ledGreen) {
+        document.getElementById('ledGreen').style.cssText += 'background-color: green'
+      }
       document.getElementById('config_msg').value = JSON.stringify(JSON.parse(json), null, '\t')
     }
-  };
+  }
+}
+function setLed(btn,off_color){
+  var httpRequest = new XMLHttpRequest()
+  let color = btn.substring(3).toLowerCase()
+  if (document.getElementById(btn).style.cssText.indexOf(color) > 0) {
+    httpRequest.open('GET', '/config' + '?' + btn + '=OFF', true)
+    document.getElementById(btn).style.cssText = document.getElementById(btn).style.cssText.replace(color, off_color)
+  } else {
+    httpRequest.open('GET', '/config' + '?' + btn + '=ON', true)
+    document.getElementById(btn).style.cssText += 'background-color: ' + color
+  }
+  httpRequest.send()
+  httpRequest.onreadystatechange = function () {
+    if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+      var json = httpRequest.responseText
+      document.getElementById('config_msg').value = JSON.stringify(JSON.parse(json), null, '\t')
+    }
+  }
 }
 </script>
 <style>
