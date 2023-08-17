@@ -3,6 +3,10 @@
 - Luma.oled库 [Luma api](https://luma-oled.readthedocs.io/en/latest/api-documentation.html) 
 [教程1](https://blog.csdn.net/qq_46476163/article/details/116395514)
 [教程2](https://blog.csdn.net/u011198687/article/details/120347965)
+### OpenMediaVault(OMV)
+[教程1](https://blog.csdn.net/qq_41676577/article/details/128063914)
+[教程2](https://www.cnblogs.com/Yogile/p/12577321.html)
+用到的是最新的树莓派官方精简版系统（不能使用带桌面的版本！）
 - TODO
 ### ST7735 1.44 寸彩色 TFT 屏幕（SPI 通信）
 [教程1](https://timor.tech/mcu/lcd/rpi-st7735-python.html)
