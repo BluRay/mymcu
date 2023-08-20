@@ -7,6 +7,8 @@
 [教程1](https://blog.csdn.net/qq_41676577/article/details/128063914)
 [教程2](https://www.cnblogs.com/Yogile/p/12577321.html)
 用到的是最新的树莓派官方精简版系统（不能使用带桌面的版本！）
+安装脚本 debs/pi4b_omv_install
+将树莓派通过 网线 连接到路由器上  OMV不支持WIFI传输，只可通过网线连接。
 - TODO
 ### ST7735 1.44 寸彩色 TFT 屏幕（SPI 通信）
 [教程1](https://timor.tech/mcu/lcd/rpi-st7735-python.html)
