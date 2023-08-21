@@ -133,4 +133,4 @@ docker run -itd -v /opt/www:/usr/local/apache2/htdocs -v /opt/docker/httpd.conf:
    Arduino开发板选择 Ai Thinker ESP32-CAM
    使用示例CameraWebServer 串流成功 问题：发热较严重；清晰度不够；无录音
  - 230717 闲鱼4B4G(400)   
-   
+ - 230818 RaspberryPi OMV SUCCESS

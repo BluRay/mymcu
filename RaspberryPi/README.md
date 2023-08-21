@@ -9,6 +9,7 @@
 用到的是最新的树莓派官方精简版系统（不能使用带桌面的版本！）
 安装脚本 debs/pi4b_omv_install
 将树莓派通过 网线 连接到路由器上  OMV不支持WIFI传输，只可通过网线连接。
+不要使用OMV系统对U盘进行擦除，可能导致U盘无法识别。应使用格式化好的U盘。
 - TODO
 ### ST7735 1.44 寸彩色 TFT 屏幕（SPI 通信）
 [教程1](https://timor.tech/mcu/lcd/rpi-st7735-python.html)
