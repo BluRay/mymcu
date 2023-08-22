@@ -32,5 +32,5 @@ while True:
   value=adc.read_u16() #read Potentiometer value
   print(value)
   degree=value*180/65500 #convert Potentiometer value to a servo position angle
-  servo(degree). #rotate servo to that angle
+  servo(degree) #rotate servo to that angle
   sleep(0.001)
