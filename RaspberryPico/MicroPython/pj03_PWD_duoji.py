@@ -29,8 +29,10 @@ def servo(degrees): #rotate servo arm to degrees position
   servoPin.duty_u16(int(newDuty))
 
 while True:
-  value=adc.read_u16() #read Potentiometer value
-  print(value)
+  # 读取ADC电位器数值
+  #value=adc.read_u16() #read Potentiometer value
+  #print(value)
+  value = 1
   degree=value*180/65500 #convert Potentiometer value to a servo position angle
   servo(degree) #rotate servo to that angle
-  sleep(0.001)
+  sleep(1)

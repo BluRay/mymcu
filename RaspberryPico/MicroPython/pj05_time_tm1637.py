@@ -10,13 +10,23 @@ import tm1637
 from machine import Pin
 tm = tm1637.TM1637(clk=Pin(5), dio=Pin(4))
 
+# 600S µ¹¼ÆÊ±
+i=600
+while(1):
+    time = '%04d' % i
+    tm.show(time, True)
+    sleep(1)
+    i = i - 1
+    if (i == 0):
+        i = 300
+        
 # all LEDS on "88:88"
+'''
 tm.write([127, 255, 127, 127])
 tm.write(bytearray([127, 255, 127, 127]))
 tm.write(b'\x7F\xFF\x7F\x7F')
 tm.show('8888', True)
 tm.numbers(88, 88, True)
-'''
 # all LEDS off
 tm.write([0, 0, 0, 0])
 tm.show('    ')
