@@ -134,3 +134,5 @@ docker run -itd -v /opt/www:/usr/local/apache2/htdocs -v /opt/docker/httpd.conf:
    使用示例CameraWebServer 串流成功 问题：发热较严重；清晰度不够；无录音
  - 230717 闲鱼4B4G(400)   
  - 230818 RaspberryPi OMV SUCCESS
+ - 230820 RaspberryPico 超声距离传感器 舵机 控制小垃圾桶开合
+ - 230828 光敏电阻 寻轨小车 焊接组装
