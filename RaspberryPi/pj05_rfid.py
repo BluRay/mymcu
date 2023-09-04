@@ -1,4 +1,4 @@
-# (For Pi)https://pypi.org/project/mfrc522/
+# (For Pi)https://pypi.org/project/mfrc522/  [A library to integrate the MFRC522 RFID readers with the Raspberry Pi]
 # (For Pico)https://github.com/kevinmcaleer/pico-rfid
 from time import sleep
 import sys
