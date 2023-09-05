@@ -11,15 +11,18 @@
 将树莓派通过 网线 连接到路由器上  OMV不支持WIFI传输，只可通过网线连接。
 不要使用OMV系统对U盘进行擦除，可能导致U盘无法识别。应使用格式化好的U盘。
 ### Mysql8
+```bash
 docker pull mysql:8.1.0
-#启动
 docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=XXXXXX -d mysql:8.1.0
+```
 #进入容器 放开root远程登陆 Mysql 8.0版本配置方法：
+```bash
 docker exec -it mysql bash
 create user 'root'@'%' identified by '密码';
 grant all on *.* to 'root'@'%';
 alter user 'root'@'%' identified with mysql_native_password by '密码';
 flush privileges;
+```
 
 - TODO
 ### ST7735 1.44 寸彩色 TFT 屏幕（SPI 通信）
