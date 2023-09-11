@@ -1,3 +1,9 @@
+/** 
+  读取 写入 配置文件【pi.conf】
+  TODO 读取 写入 MysqlDB
+  TODO 读取 传感器 数据
+**/
+
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
