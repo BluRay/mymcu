@@ -15,7 +15,7 @@ function getMysqlConnection() {
   var connection = mysql.createConnection({
     host     : '10.23.5.150',
     user     : 'gravity',
-    password : '07422770',
+    password : 'XXXXXXX',
     database : 'gravity'
   }); 
   connection.connect(); 
