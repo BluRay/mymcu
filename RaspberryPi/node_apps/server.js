@@ -1,13 +1,45 @@
 /** 
   读取 写入 配置文件【pi.conf】
-  TODO 读取 写入 MysqlDB
-  TODO 读取 传感器 数据
+  读取 写入 MysqlDB
+  TODO 循环读取 传感器 数据
 **/
 
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
 var querystring = require('querystring');
+
+// cnpm install mysql
+var mysql      = require('mysql');
+function getMysqlConnection() {
+  var connection = mysql.createConnection({
+    host     : '10.23.5.150',
+    user     : 'gravity',
+    password : '07422770',
+    database : 'gravity'
+  }); 
+  connection.connect(); 
+  return connection
+}
+
+function getVinfo(keyword) {
+  console.log('-->getVinfo');
+  var connection = getMysqlConnection()
+  var sql = 'SELECT * FROM tb_fit';
+  connection.query(sql,function (err, result) {
+    if(err){
+      console.log('[SELECT ERROR] - ',err.message);
+      return;
+    }
+    console.log(result);
+  })
+  connection.end();
+}
+
+// 循环刷新数据
+setInterval(function() {
+  console.log('---->intervalFunc');
+}, 5000);
 
 // 创建服务器
 http.createServer( function (request, response) {
@@ -78,6 +110,7 @@ http.createServer( function (request, response) {
     })
   }
   if (pathname === '/'){
+    getVinfo()
     pathname = '/index.html'
   }
   if (pathname.indexOf('.html') > 0){
