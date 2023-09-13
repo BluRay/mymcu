@@ -15,7 +15,7 @@ function getMysqlConnection() {
   var connection = mysql.createConnection({
     host     : '10.23.5.150',
     user     : 'gravity',
-    password : 'XXXXXXX',
+    password : '07422770',
     database : 'gravity'
   }); 
   connection.connect(); 
@@ -36,10 +36,10 @@ function getVinfo(keyword) {
   connection.end();
 }
 
-// 循环刷新数据
+// 15S循环刷新数据
 setInterval(function() {
   console.log('---->intervalFunc');
-}, 5000);
+}, 15000);
 
 // 创建服务器
 http.createServer( function (request, response) {
@@ -110,9 +110,10 @@ http.createServer( function (request, response) {
     })
   }
   if (pathname === '/'){
-    getVinfo()
+    // getVinfo()
     pathname = '/index.html'
   }
+  // HTML文件显示
   if (pathname.indexOf('.html') > 0){
     fs.readFile(pathname.substr(1), function (err, data) {
       if (err) {
@@ -124,6 +125,23 @@ http.createServer( function (request, response) {
         response.writeHead(200, {'Content-Type': 'text/html'})
         // 响应文件内容
         response.write(data.toString())
+      }
+      // 发送响应数据
+      response.end()
+    });
+  }
+  // 字体或其他类型文件
+  if (pathname.indexOf('.ttf') > 0){
+    fs.readFile(pathname.substr(1), function (err, data) {
+      if (err) {
+        console.log(err)
+        // HTTP 状态码: 404 : NOT FOUND / Content Type: text/html
+        response.writeHead(404, {'Content-Type': 'text/html'})
+      }else{
+        // HTTP 状态码: 200 : OK / Content Type: text/html
+        response.writeHead(200, {'Content-Type': 'text/html'})
+        // 响应文件内容
+        response.write(data,'binary'); 
       }
       // 发送响应数据
       response.end()

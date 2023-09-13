@@ -15,6 +15,7 @@
       <button id="ledYellow" onclick="setLed('ledYellow', '#FFFFB3')" style="background-color:#FFFFB3;height:50px;width:33%;">黄 Yellow</button> 
       <button id="ledGreen" onclick="setLed('ledGreen', '#91FF91')" style="background-color:#91FF91;height:50px;width:32%;">绿 Green</button>
     </div>
+    <div id="digi_div" class="digi" >1234567890ABC</div>
     <p>Gravity@2023</p>
   </div>
 </body>
@@ -64,6 +65,16 @@ function setLed(btn,off_color){
 }
 </script>
 <style>
+@font-face {
+  font-family: 'led regular';
+  src: url('./Digital_Regular.ttf');
+}
+.digi {
+  color: darkblue;
+  display: inline;
+  font-family: "led regular";
+  font-size: 64px;
+}
 .maindiv {
   width:98vw;
   height: 60vh;
