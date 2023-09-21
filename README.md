@@ -96,7 +96,8 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 hub.docker.com 查找适配合适内核的镜像 
-apache2 + php
+apache2 + php Docker 多容器运行 PHP-FPM + Apache
+https://www.jianshu.com/p/aba42313d79a
 ```bash
 docker pull httpd
 docker pull php:7.0.23-fpm
@@ -108,7 +109,7 @@ LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
 # 注释DocumentRoot "/usr/local/apache2/htdocs" 和 <Directory "/usr/local/apache2/htdocs">...</Directory>
 # 增加配置 docker network inspect bridge 查看php-fpm 容器的ip
 <VirtualHost *:80>
-    ServerAdmin liang@com.cn
+    ServerAdmin yangke0227@gmail.com
     DocumentRoot "/usr/local/apache2/htdocs"
     ServerName localhost
     <Directory "/usr/local/apache2/htdocs">
@@ -118,8 +119,10 @@ LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
     ProxyRequests Off
     ProxyPassMatch ^/(.*\.php)$ fcgi://172.17.0.2:9000/php/$1
 </VirtualHost>
+# 启动 PHP-FPM
+docker run -itd --name php-fpm -v /opt/php:/php php:7.0.23-fpm
 # 启动apache 映射WEB目录和配置文件
-docker run -itd -v /opt/www:/usr/local/apache2/htdocs -v /opt/docker/httpd.conf:/usr/local/apache2/conf/httpd.conf -p 80:80 httpd
+docker run -itd -v /opt/php:/usr/local/apache2/htdocs -v /opt/mydocker/php/httpd.conf:/usr/local/apache2/conf/httpd.conf -p 80:80 httpd
 ```
 - Installing InfluxDB & Grafana on Raspberry Pi
 	https://simonhearne.com/2020/pi-influx-grafana/	
