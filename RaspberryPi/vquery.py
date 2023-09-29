@@ -3,7 +3,7 @@ import pymysql
 
 def connDb():
   # 打开数据库连接
-  db = pymysql.connect(host='192.168.1.72', user='root', password='XXXXXXX', database='gravity', port=9211)
+  db = pymysql.connect(host='192.168.1.72', user='root', password='07422770', database='gravity', port=9211)
   # 使用 cursor() 方法创建一个游标对象 cursor
   # cursor = db.cursor()
   return db
