@@ -1,5 +1,16 @@
 # 用树莓派Pico 控制电机 https://www.eet-china.com/mp/a38406.html
-# TODO
+# 
+# 管脚说明：
+# ANI1：AO1的逻辑输入控制端口，电平0-5V。
+# AIN2：AO2的逻辑输入控制端口，电平0-5V。
+# BNI1：BO1的逻辑输入控制端口，电平0-5V。
+# BIN2：BO2的逻辑输入控制端口，电平0-5V。
+# AO1、AO2为1路H桥输出端口，接一个直流电机的两个脚。
+# BO1、BO2为2路H桥输出端口，接另一个外直接电机的两个脚。
+# GND：接地。
+# VM：芯片和电机供电脚，电压范围2.7 V – 10.8 V。
+# STBY：接地或悬空芯片不工作，无输出，接5V工作；电平0-5V。
+# NC：空脚
 
 import utime
 from machine import Pin
@@ -25,3 +36,4 @@ def stop():
 
 while True:
 	# TODO
+	forward()
