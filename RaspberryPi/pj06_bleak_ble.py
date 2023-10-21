@@ -15,9 +15,9 @@ async def discover():
   print('-->Discover Ble Devices End')
 
 # 获取设备Model Number
-address = "24:71:89:cc:09:05"
+address = "48:87:2D:64:FA:A8"
 MODEL_NBR_UUID = "2A24"
-async def getBleModelNumber(address):
+async def getBleModelNumber():
   async with BleakClient(address) as client:
     model_number = await client.read_gatt_char(MODEL_NBR_UUID)
     print("Model Number: {0}".format("".join(map(chr, model_number))))
@@ -37,9 +37,8 @@ async def getBleService(address):
     
 # 发送数据
 # 设备蓝牙地址
-ADDRESS = "A0:9F:10:7E:1B:5D"
 # 设备蓝牙UUID
-UART_RX_CHAR_UUID = "49535343-8830-43F4-A8D4-ECBE34729B77"
+UART_RX_CHAR_UUID = "0000ffe1-0000-1000-8000-00805f9b34fb"
 UART_TX_CHAR_UUID = "49535343-1E4D-4BD9-BA61-23C647249677"
 # 发送数据
 data_send = [0x00, 0x11, 0x22]
@@ -49,14 +48,20 @@ data_recive = [0x00, 0x00, 0x00, 0x00, 0x00, 0x0]
 async def sent(address, data):
   async with BleakClient(address) as client:
     print(f"Connected: {client.is_connected}")
+    await asyncio.sleep(1.0)
+    await client.write_gatt_char(UART_RX_CHAR_UUID,bytes(data))
+    '''
     paired = await client.pair(protection_level=2)
     print(f"Paired: {paired}")
-      while client.is_connected:
-        while paired == True:
-          print("send data")
-          await client.write_gatt_char(UART_RX_CHAR_UUID,bytes(data))
-          #await client.start_notify(UART_TX_CHAR_UUID, handle_rx)
-          await asyncio.sleep(1.0)
+    while client.is_connected:
+      while paired == True:
+        print("send data")
+        await client.write_gatt_char(UART_RX_CHAR_UUID,bytes(data))
+        #await client.start_notify(UART_TX_CHAR_UUID, handle_rx)
+        await asyncio.sleep(1.0)
+    '''
 
 ## START ##
-asyncio.run(discover())
+# asyncio.run(discover())
+# asyncio.run(getBleModelNumber())
+# asyncio.run(sent(address, data_send))
