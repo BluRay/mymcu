@@ -23,6 +23,13 @@ grant all on *.* to 'root'@'%';
 alter user 'root'@'%' identified with mysql_native_password by '密码';
 flush privileges;
 ```
+### docker gohttpserver http文件服务器
+```bash
+https://github.com/codeskyblue/gohttpserver
+docker pull codeskyblue/gohttpserver
+docker pull nvidhub/gohttpserver:arm64  # 树莓Pi
+docker run -it --name gohttpserver -p 8082:8000 -v /opt/gohttpfileserver:/app/public codeskyblue/gohttpserver --upload --delete
+```
 
 - TODO
 ### ST7735 1.44 寸彩色 TFT 屏幕（SPI 通信）

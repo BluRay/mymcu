@@ -5,7 +5,7 @@ import pymysql
 
 def connDb():
   # 打开数据库连接
-  db = pymysql.connect(host='10.23.5.150', user='gravity', password='07422770', database='gravity', port=3306)
+  db = pymysql.connect(host='127.0.0.1', user='gravity', password='07422770', database='gravity', port=3306)
   return db
 
 def queryDb(db, sql):
