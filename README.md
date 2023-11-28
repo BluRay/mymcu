@@ -27,6 +27,8 @@ mcu study &amp; test
 	https://github.com/shariltumin/esp32-cam-micropython-2022
 - Arduino 
 	arduino-esp32-cam环境配置和例程 https://blog.csdn.net/akk41397/article/details/106419396
+	下载程序底板提示Device is Busy or does not respond
+	需手动连接 5v GND txd(UOT) rxd(UOR) 开发板和底板
 
 ### Raspberry Pi
 - 设置时间服务器和时区
