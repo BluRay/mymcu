@@ -41,6 +41,12 @@ docker run -it --name gohttpserver -p 8082:8000 -v /opt/gohttpfileserver:/app/pu
 - 安装或更新gpio：https://github.com/WiringPi/WiringPi Releases下载arm64版本的deb \ sudo dpkg -i wiringpi-2.61-1-arm64.deb
 ![image](PI_PIN.png)
 ![image](PI_PIN2.png)
+### 连接摄像头并通过串流远程访问
+https://blog.csdn.net/weixin_45994747/article/details/109605765
+硬件连接时我们首先需要使用树莓派摄像头FFC排线，连接树莓派摄像头与树莓派开发板。其中排线连接的接口被称为CSI（Camera Serial Interface）接口。
+树莓派开发板的CSI接口位于USB和以太网接口旁边。我们先将CSI接口的黑色挡板拔开，之后将排线蓝色一端正对以太网接口方向插入，之后按下黑色挡板进行固定。
+
+使用Linux下一款开源监控软件：motion
 ####GPIO引脚用途
 在这个40Pin管脚中，除了12个电源类外，其余28个都是可编程的GPIO，其中部分GPIO可以复用为IIC，SPI，UART，PWM等等，可以用来驱动各种外设。
 
