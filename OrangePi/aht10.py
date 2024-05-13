@@ -6,6 +6,7 @@
 # cleaned up and documented smbus 1 and some errors
 # GJ 03-2020
 # i2cdetect -y 0
+# smbus是Python的一个扩展库，它提供了对I2C总线的访问和操作 安装：pip3 install smbus
 import smbus
 import time
 
