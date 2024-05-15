@@ -1,6 +1,7 @@
 /** 
   读取 写入 配置文件【pi.conf】
   读取 写入 MysqlDB
+  接收 设备 POST请求 保存数据到数据库
   TODO 循环读取 传感器 数据
 **/
 
@@ -13,9 +14,9 @@ var querystring = require('querystring');
 var mysql      = require('mysql');
 function getMysqlConnection() {
   var connection = mysql.createConnection({
-    host     : '10.23.5.150',
-    user     : 'gravity',
-    password : '07422770',
+    host     : '1.94.26.149',
+    user     : 'root',
+    password : 'XXXXXX',
     database : 'gravity'
   }); 
   connection.connect(); 
@@ -39,7 +40,7 @@ function getVinfo(keyword) {
 // 15S循环刷新数据
 setInterval(function() {
   console.log('---->intervalFunc');
-}, 15000);
+}, 30000);
 
 // 创建服务器
 http.createServer( function (request, response) {
@@ -75,7 +76,7 @@ http.createServer( function (request, response) {
           return console.error(error)
         }
         console.log('update success')
-        response.writeHead(200, {'Content-Type': 'text/html'})
+        response.writeHead(200, {'Content-Type': 'text/json'})
         response.write(JSON.stringify(conf_json))
         response.end();
       })
@@ -87,12 +88,33 @@ http.createServer( function (request, response) {
     request.on('data', function (chunk) {
       body += chunk
     });
+
     request.on('end', function () {
+      var insert_Sql = 'INSERT INTO HOME_LAB(device_id,device_name,json_data,rec_time) VALUES(?,?,?,now())'
       body = JSON.parse(body)
-      console.log(JSON.stringify(body))
-      response.writeHead(200, {'Content-Type': 'text/html'})
-      response.write('post body:' + JSON.stringify(body))
-      response.end()
+      var insert_Params = [body.device_id, body.device_name, JSON.stringify(body.json_data)]
+      
+      var connection = getMysqlConnection()
+      connection.query(insert_Sql,insert_Params,function (err, result) {
+        if(err){
+           console.log('[INSERT ERROR] - ',err.message);
+           body.code = -1
+           body.msg = err.message
+        } else {
+          console.log('-------INSERT OK-------');
+          console.log('INSERT ID:',result);
+          console.log('#######################');
+          connection.end();
+          console.log('-------CONN END--------');
+          body.code = 0
+          body.msg = 'success'
+        }
+        
+        console.log(JSON.stringify(body))
+        response.writeHead(200, {'Content-Type': 'text/json'})
+        response.write(JSON.stringify(body))
+        response.end()
+      });
     });
   }
   if (pathname === '/hello') {
