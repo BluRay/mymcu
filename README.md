@@ -139,7 +139,11 @@ docker run -itd -v /opt/php:/usr/local/apache2/htdocs -v /opt/mydocker/php/httpd
    附加开发板管理器中添加网址：https://dl.espressif.com/dl/package_esp32_index.json
    Arduino开发板选择 Ai Thinker ESP32-CAM
    使用示例CameraWebServer 串流成功 问题：发热较严重；清晰度不够；无录音
- - 230717 闲鱼4B4G(400)   
- - 230818 RaspberryPi OMV SUCCESS
+ - 230717 闲鱼 RaspberryPi 4B4G(400)   
+ - 230818 RaspberryPi OMV Clash-Mate NodeServer SUCCESS
  - 230820 RaspberryPico 超声距离传感器 舵机 控制小垃圾桶开合
  - 230828 光敏电阻 寻轨小车 焊接组装
+
+ - 240429 闲鱼 OrangePiZero3 4G (185)
+ - 2405   OrangePiZero3 GPIO I2C PhotoPrism(Docker) SUCCESS
+ - 2405   ESP32 Rev1 GPIO I2C AHT10(温湿度) RemoteAPI SUCCESS
