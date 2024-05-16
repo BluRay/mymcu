@@ -3,6 +3,13 @@
 #esp.osdebug(None)
 #import webrepl
 #webrepl.start()
+
+# TODO 连接默认WIFI配置 连接不上时开启AP 通过手机连接热点 配置WIFI信息
+# TODO 可配置多个WIFI 自动连接信号最强的WIFI 没有连接WIFI时保持N条数据在文件中
+# TODO 连接tm1637 4位数码管 显示实时温湿度
+# TODO 控制继电器
+# TODO 采集GPS数据并上传
+
 import time
 import ahtx0
 from machine import Pin, SoftI2C, Timer
@@ -22,16 +29,14 @@ def do_connect():
 
 # 每15分钟提交当前温度湿度数据
 def postData():
-    print("\nTemperature: %0.2f C" % sensor.temperature)
-    print("Humidity: %0.2f %%" % sensor.relative_humidity)
     try:
         # res = requests.get(url='http://120.24.188.63:8080/post')
         request_url = 'http://120.24.188.63:8080/post'
         header_data = { "content-type": 'application/json; charset=utf-8', "devicetype": '1'}
         json_date = '{"device_id": "esp32_01", "json_data":{"Temperature": "' + str(round(sensor.temperature, 2)) + '","Humidity": "' + str(round(sensor.relative_humidity, 2)) + '"}}'
-        print(json_date)
+        # print(json_date)
         res = requests.post(request_url, headers = header_data, data = json_date)
-        print(res.text)
+        # print(res.text)
     except:
        print("-->api 404") 
 
