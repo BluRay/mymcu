@@ -13,6 +13,7 @@
 import time
 import ahtx0
 from machine import Pin, SoftI2C, Timer
+from ssd1306 import SSD1306_I2C
 import urequests as requests
 
 # 连接无线网络
@@ -41,13 +42,25 @@ def postData():
        print("-->api 404") 
 
 i2c = SoftI2C(scl=Pin(17), sda=Pin(16))
-sensor = ahtx0.AHT10(i2c)
+sensor = ahtx0.AHT10(i2c)         # 温湿度传感器
+oled = SSD1306_I2C(128, 32, i2c)  # OLED显示屏
 do_connect()
+
+temperature = '-'
+humidity = '-'
 
 # 启动定时器
 timer = Timer(1)
 timer.init(period=60000*15, mode=Timer.PERIODIC, callback=lambda t:postData())
 
+oled.fill(0)
+oled.show()
+while(1):
+  temperature = str(round(sensor.temperature, 2))
+  humidity = str(round(sensor.relative_humidity, 2))
+  oled.text(temperature,0,0,16)
+  oled.show()
+  time.sleep(5)
 '''
 while(1):
     time.sleep(5)
