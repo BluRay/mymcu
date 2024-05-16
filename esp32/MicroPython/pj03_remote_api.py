@@ -42,6 +42,16 @@ def postData():
        print("-->api 404") 
 
 i2c = SoftI2C(scl=Pin(17), sda=Pin(16))
+# 扫描I2C设备
+print('Scan i2c bus...')
+devices = i2c.scan()
+if len(devices) == 0:
+  print("No i2c device !")
+else:
+  print('i2c devices found:',len(devices))
+  for device in devices:  
+    print("Decimal address: ",device," | Hexa address: ",hex(device))
+
 sensor = ahtx0.AHT10(i2c)         # 温湿度传感器
 oled = SSD1306_I2C(128, 32, i2c)  # OLED显示屏
 do_connect()
