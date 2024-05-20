@@ -11,42 +11,66 @@
 # TODO 采集GPS数据并上传
 
 import time
+import network
+import ujson
 import ahtx0
+import urequests as requests
 from machine import Pin, SoftI2C, Timer
 from ssd1306 import SSD1306_I2C
-import urequests as requests
 
-wifi_ssd = 'MiWiFi'     # WIFI名称
-wifi_psd = '07422770'   # WIFI密码
+WIFI_SSD = 'MiWiFi'     # WIFI名称
+WIFI_PSD = '07422770'   # WIFI密码
+wlan = network.WLAN(network.STA_IF)
 
-remote_config_url = 'http://120.24.188.63:8080/config'  # 获取配置地址
-remote_postdb_url = 'http://120.24.188.63:8080/post'    # 接收数据地址
+REMOTE_CONFIG_URL = 'http://120.24.188.63:8080/config'  # 获取配置地址
+REMOTE_POSTDB_URL = 'http://120.24.188.63:8080/post'    # 接收数据地址
 
-temperature = '0'       # 温度
-humidity = '0'          # 湿度
+TEMPERATURE = '0'       # 温度
+HUMIDITY = '0'          # 湿度
+RELAY1 = false          # 继电器1状态
+
+THFILE = 'thfile.txt'   # 温湿度离线文件 无网络时保存数据到离线文件
+GPSFILE = 'gpsfile.txt' # GPS离线文件
 
 # 连接无线网络
 def do_connect():
-    import network
-    wlan = network.WLAN(network.STA_IF)
-    wlan.active(True)
-    if not wlan.isconnected():
-        print('connecting to network...')
-        wlan.connect('MiWiFi', '07422770')
-        while not wlan.isconnected():
-            pass
-    print('network config:', wlan.ifconfig())
+  wlan.active(True)
+  if not wlan.isconnected():
+    print('Connecting to Network... WIFI_SSD:' + WIFI_SSD)
+    wlan.connect(WIFI_SSD, WIFI_PSD)
+    while not wlan.isconnected():
+      pass
+  print('Network Config:', wlan.ifconfig())
 
-# 每15分钟提交当前温度湿度数据
+# 每13分钟提交当前温度湿度数据
 def postData():
+  if wlan.isconnected():
     try:
-        header_data = { "content-type": 'application/json; charset=utf-8', "devicetype": '1'}
-        json_date = '{"device_id": "esp32_01", "json_data":{"Temperature": "' + str(round(sensor.temperature, 2)) + '","Humidity": "' + str(round(sensor.relative_humidity, 2)) + '"}}'
-        # print(json_date)
-        res = requests.post(remote_postdb_url, headers = header_data, data = json_date)
-        # print(res.text)
+      header_data = { "content-type": 'application/json; charset=utf-8', "devicetype": '1'}
+      json_date = '{"device_id": "esp32_01", "json_data":{"Temperature": "' + str(round(sensor.temperature, 2)) + '","Humidity": "' + str(round(sensor.relative_humidity, 2)) + '"}}'
+      # print(json_date)
+      res = requests.post(remote_postdb_url, headers = header_data, data = json_date)
+      # print(res.text)
     except:
-       print("-->api 404") 
+      print("-->postData api 404")
+  else: 
+    # 无网络时重新连接网络并保存数据到离线文件
+    do_connect()
+
+# 每17分钟获取配置数据
+def getConfigData():
+  if wlan.isconnected():
+    try:
+      res = requests.get(REMOTE_CONFIG_URL)
+      print(res.text)
+      config_json = ujson.loads(res.text)
+      if config_json.get('RELAY1') != None:
+        RELAY1 = config_json['RELAY1']
+    except:
+      print("-->getConfigData api 404") 
+  else: 
+    # 无网络时重新连接网络
+    do_connect()
 
 i2c = SoftI2C(scl=Pin(17), sda=Pin(16))
 # 扫描I2C设备
@@ -65,7 +89,9 @@ do_connect()
 
 # 启动定时器
 timer = Timer(1)
-timer.init(period=60000*15, mode=Timer.PERIODIC, callback=lambda t:postData())
+timer.init(period=60000*17, mode=Timer.PERIODIC, callback=lambda t:postData())
+timer = Timer(2)
+timer.init(period=60000*13, mode=Timer.PERIODIC, callback=lambda t:getConfigData())
 
 while(1):
   oled.fill(0)
@@ -74,7 +100,7 @@ while(1):
   humidity = str(round(sensor.relative_humidity, 2))
   oled.text(temperature,0,0,16)
   oled.show()
-  time.sleep(5)
+  time.sleep(15)
 
 '''
 while(1):
