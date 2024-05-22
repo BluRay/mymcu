@@ -3,7 +3,8 @@ import utime
 from micropyGPS import MicropyGPS
 
 # Initialize GPS module
-gps_module = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(5))
+# gps_module = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(5))
+gps_module = UART(1, rx=5, tx=4, baudrate=9600, bits=8, parity=None, stop=1, timeout=5000, rxbuf=1024)
 time_zone = +8
 gps = MicropyGPS(time_zone)
 
