@@ -19,6 +19,9 @@ mcu study &amp; test
 - RYG_led_keybroad_5_4 通过5*4键盘控制红黄绿灯
 
 ### Esp32
+- aht10温湿度传感器 OLED显示温湿度 通过WIFI上传数据到RemoteApi
+- 继电器 esp32没有5V引脚 需匹配3V继电器模块
+- [TODO] GPS模块 获取定位并通过WIFI上传数据到RemoteApi 没有网络时保存数据到本机 连接到网络时批量上传
 
 #### Esp32 cam
 - hello
