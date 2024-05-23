@@ -20,9 +20,9 @@ mcu study &amp; test
 
 ### Esp32
 - aht10温湿度传感器 OLED显示温湿度 通过WIFI上传数据到RemoteApi
-- 继电器 esp32没有5V引脚 需匹配3V继电器模块
+- 继电器 esp32没有5V引脚 需匹配3V继电器模块 WIFI远程控制继电器
 - [TODO] GPS模块 获取定位并通过WIFI上传数据到RemoteApi 没有网络时保存数据到本机 连接到网络时批量上传
-- [TODO] 红外接收模块
+- [TODO] 红外接收模块 
 
 #### Esp32 cam
 - hello
