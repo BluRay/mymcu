@@ -39,7 +39,8 @@ function getVinfo(keyword) {
 
 // 15S循环刷新数据
 setInterval(function() {
-  console.log('---->intervalFunc');
+  let curDate = new Date()
+  console.log('-->intervalFunc ' + ((curDate.getHours()<9)?'0':'') + curDate.getHours() + ':' + ((curDate.getMinutes()<9)?'0':'') + curDate.getMinutes() + ':' + ((curDate.getSeconds()<9)?'0':'') + curDate.getSeconds());
 }, 30000);
 
 // 创建服务器
@@ -76,6 +77,8 @@ http.createServer( function (request, response) {
           return console.error(error)
         }
         console.log('update success')
+        let curDate = new Date()
+        conf_json.time = ((curDate.getHours()<9)?'0':'') + curDate.getHours() + ':' + ((curDate.getMinutes()<9)?'0':'') + curDate.getMinutes() + ':' + ((curDate.getSeconds()<9)?'0':'') + curDate.getSeconds()
         response.writeHead(200, {'Content-Type': 'text/json'})
         response.write(JSON.stringify(conf_json))
         response.end();
