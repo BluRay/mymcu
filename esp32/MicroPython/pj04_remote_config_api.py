@@ -88,10 +88,10 @@ oled = SSD1306_I2C(128, 32, i2c)  # OLED显示屏
 do_connect()
 
 # 启动定时器
-timer = Timer(1)
-timer.init(period=60000*17, mode=Timer.PERIODIC, callback=lambda t:postData())
-timer = Timer(2)
-timer.init(period=60000*13, mode=Timer.PERIODIC, callback=lambda t:getConfigData())
+timer1 = Timer(1)
+timer1.init(period=60000*17, mode=Timer.PERIODIC, callback=lambda t:postData())
+timer2 = Timer(2)
+timer2.init(period=60000*13, mode=Timer.PERIODIC, callback=lambda t:getConfigData())
 
 while(1):
   oled.fill(0)
