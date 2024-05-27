@@ -15,6 +15,9 @@
       <button id="ledYellow" onclick="setLed('ledYellow', '#FFFFB3')" style="background-color:#FFFFB3;height:50px;width:33%;">黄 Yellow</button> 
       <button id="ledGreen" onclick="setLed('ledGreen', '#91FF91')" style="background-color:#91FF91;height:50px;width:32%;">绿 Green</button>
     </div>
+    <div>
+      <button id="oledDisplay" onclick="switchOledDisplay()" style="background-color:#FF9191;height:50px;width:32%;">Oled</button> 
+    </div>
     <div id="digi_div" class="digi" >1234567890ABC</div>
     <p>Gravity@2023</p>
   </div>
@@ -41,6 +44,11 @@ function getConfig() {
       if ('ON' === JSON.parse(json).ledGreen) {
         document.getElementById('ledGreen').style.cssText += 'background-color: green'
       }
+      if ('ON' === JSON.parse(json).OledDisplay) {
+        document.getElementById('oledDisplay').innerHTML = 'Oled ON'
+      } else {
+        document.getElementById('oledDisplay').innerHTML = 'Oled OFF'
+      }
       document.getElementById('config_msg').value = JSON.stringify(JSON.parse(json), null, '\t')
     }
   }
@@ -63,6 +71,24 @@ function setLed(btn,off_color){
     }
   }
 }
+function switchOledDisplay() {
+  var httpRequest = new XMLHttpRequest()
+  if (document.getElementById('oledDisplay').innerHTML.indexOf('ON') > 0) {
+    httpRequest.open('GET', '/config' + '?OledDisplay=OFF', true)
+    document.getElementById('oledDisplay').innerHTML = 'Oled OFF'
+  } else {
+    httpRequest.open('GET', '/config' + '?OledDisplay=ON', true)
+    document.getElementById('oledDisplay').innerHTML = 'Oled ON'
+  }
+  httpRequest.send()
+  httpRequest.onreadystatechange = function () {
+    if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+      var json = httpRequest.responseText
+      document.getElementById('config_msg').value = JSON.stringify(JSON.parse(json), null, '\t')
+    }
+  }
+}
+getConfig()
 </script>
 <style>
 @font-face {
