@@ -40,7 +40,7 @@ function getVinfo(keyword) {
 // 15S循环刷新数据
 setInterval(function() {
   let curDate = new Date()
-  console.log('-->intervalFunc ' + ((curDate.getHours()<9)?'0':'') + curDate.getHours() + ':' + ((curDate.getMinutes()<9)?'0':'') + curDate.getMinutes() + ':' + ((curDate.getSeconds()<9)?'0':'') + curDate.getSeconds());
+  console.log('-->intervalFunc ' + ((curDate.getHours()<10)?'0':'') + curDate.getHours() + ':' + ((curDate.getMinutes()<10)?'0':'') + curDate.getMinutes() + ':' + ((curDate.getSeconds()<10)?'0':'') + curDate.getSeconds());
 }, 30000);
 
 // 创建服务器

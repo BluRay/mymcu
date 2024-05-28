@@ -17,6 +17,7 @@
     </div>
     <div>
       <button id="oledDisplay" onclick="switchOledDisplay()" style="background-color:#FF9191;height:50px;width:32%;">Oled</button> 
+      <button id="Relay1" onclick="switchRelay1()" style="background-color:#SeaGreen;height:50px;width:32%;">继电器Relay1</button> 
     </div>
     <div id="digi_div" class="digi" >1234567890ABC</div>
     <p>Gravity@2023</p>
@@ -49,6 +50,11 @@ function getConfig() {
       } else {
         document.getElementById('oledDisplay').innerHTML = 'Oled OFF'
       }
+      if ('ON' === JSON.parse(json).Relay1) {
+        document.getElementById('Relay1').innerHTML = 'Relay1 ON'
+      } else {
+        document.getElementById('Relay1').innerHTML = 'Relay1 OFF'
+      }
       document.getElementById('config_msg').value = JSON.stringify(JSON.parse(json), null, '\t')
     }
   }
@@ -68,6 +74,25 @@ function setLed(btn,off_color){
     if (httpRequest.readyState == 4 && httpRequest.status == 200) {
       var json = httpRequest.responseText
       document.getElementById('config_msg').value = JSON.stringify(JSON.parse(json), null, '\t')
+    }
+  }
+}
+function switchRelay1() {
+  if (confirm("ConfirmSwitchRelay1?") == true) {
+    var httpRequest = new XMLHttpRequest()
+    if (document.getElementById('Relay1').innerHTML.indexOf('ON') > 0) {
+      httpRequest.open('GET', '/config' + '?Relay1=OFF', true)
+      document.getElementById('Relay1').innerHTML = 'Relay1 OFF'
+    } else {
+      httpRequest.open('GET', '/config' + '?Relay1=ON', true)
+      document.getElementById('Relay1').innerHTML = 'Relay1 ON'
+    }
+    httpRequest.send()
+    httpRequest.onreadystatechange = function () {
+      if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+        var json = httpRequest.responseText
+        document.getElementById('config_msg').value = JSON.stringify(JSON.parse(json), null, '\t')
+      }
     }
   }
 }
