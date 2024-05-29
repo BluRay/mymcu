@@ -1,15 +1,16 @@
 # https://microcontrollerslab.com/neo-6m-gps-module-esp32-micropython/
+# GPS WIFI 
 
 from machine import Pin, UART, SoftI2C
-from ssd1306 import SSD1306_I2C
+# from ssd1306 import SSD1306_I2C
 
 import utime, time
 
-i2c = SoftI2C(scl=Pin(22), sda=Pin(21), freq=10000)     #initializing the I2C method for ESP32
+# i2c = SoftI2C(scl=Pin(22), sda=Pin(21), freq=10000)     #initializing the I2C method for ESP32
+# oled = SSD1306_I2C(128, 64, i2c)
 
-oled = SSD1306_I2C(128, 64, i2c)
-
-gpsModule = UART(2, baudrate=9600)
+# gpsModule = UART(2, baudrate=9600)
+gpsModule = UART(1, rx=5, tx=4, baudrate=9600, bits=8, parity=None, stop=1, timeout=5000, rxbuf=1024)
 print(gpsModule)
 
 buff = bytearray(255)
@@ -21,6 +22,33 @@ latitude = ""
 longitude = ""
 satellites = ""
 GPStime = ""
+
+# 
+def do_connect():
+  wlan.active(True)
+  if not wlan.isconnected():
+    print('Connecting to Network... WIFI_SSD:' + WIFI_SSD)
+    wlan.connect(WIFI_SSD, WIFI_PSD)
+    while not wlan.isconnected():
+      pass
+  print('Network Config:', wlan.ifconfig())
+
+# GPS
+def postData():
+  if wlan.isconnected():
+    try:
+      header_data = { "content-type": 'application/json; charset=utf-8', "devicetype": '1'}
+      json_date = '{"device_id": "esp32_01", "json_data":{"Temperature": "' + str(round(sensor.temperature, 2)) + '","Humidity": "' + str(round(sensor.relative_humidity, 2)) + '"}}'
+      # print(json_date)
+      res = requests.post(remote_postdb_url, headers = header_data, data = json_date)
+      # print(res.text)
+    except:
+      # print("-->postData api 404")
+      with open("text.txt","a",encoding="utf-8") as f:
+      	
+  else: 
+    # 
+    do_connect()
 
 def getGPS(gpsModule):
     global FIX_STATUS, TIMEOUT, latitude, longitude, satellites, GPStime
@@ -74,14 +102,14 @@ while True:
         print("Satellites: " +satellites)
         print("Time: "+GPStime)
         print("----------------------")
-        
+        '''
         oled.fill(0)
         oled.text("Lat: "+latitude, 0, 0)
         oled.text("Lng: "+longitude, 0, 10)
         oled.text("Satellites: "+satellites, 0, 20)
         oled.text("Time: "+GPStime, 0, 30)
         oled.show()
-        
+        '''
         FIX_STATUS = False
         
     if(TIMEOUT == True):

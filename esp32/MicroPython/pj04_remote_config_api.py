@@ -49,7 +49,7 @@ def postData():
       header_data = { "content-type": 'application/json; charset=utf-8', "devicetype": '1'}
       json_date = '{"device_id": "esp32_01", "json_data":{"Temperature": "' + str(round(sensor.temperature, 2)) + '","Humidity": "' + str(round(sensor.relative_humidity, 2)) + '"}}'
       # print(json_date)
-      res = requests.post(remote_postdb_url, headers = header_data, data = json_date)
+      res = requests.post(REMOTE_POSTDB_URL, headers = header_data, data = json_date)
       # print(res.text)
     except:
       print("-->postData api 404")
