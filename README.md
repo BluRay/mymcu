@@ -109,6 +109,9 @@ https://www.jianshu.com/p/aba42313d79a
 ```bash
 docker pull httpd
 docker pull php:7.0.23-fpm
+
+### clash-mate
+docker run -d --name clash-mate --log-opt max-size=1m -v /opt/clash/clash.yaml:/root/.config/clash/config.yaml -p 9090:9090 -p 7890:7890 metacubex/clash-meta:latest
 # 修改 Apache 配置文件 
 # 打开拷贝到宿主机上的 httpd.conf 文件，找到这三个货色，把前面的#号去掉
 LoadModule proxy_module modules/mod_proxy.so

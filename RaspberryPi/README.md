@@ -30,6 +30,11 @@ docker pull codeskyblue/gohttpserver
 docker pull nvidhub/gohttpserver:arm64  # 树莓Pi
 docker run -it --name gohttpserver -p 8082:8000 -v /opt/gohttpfileserver:/app/public codeskyblue/gohttpserver --upload --delete
 ```
+### docker clash-mate 代理服务器
+```bash
+docker run -d --name clash-mate --log-opt max-size=1m -v /opt/clash/clash.yaml:/root/.config/clash/config.yaml -p 9090:9090 -p 7890:7890 metacubex/clash-meta:latest
+```
+### docker npc 内网穿透 image:ffdfgdfg/npc
 
 - TODO
 ### ST7735 1.44 寸彩色 TFT 屏幕（SPI 通信）
