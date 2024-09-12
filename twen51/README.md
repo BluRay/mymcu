@@ -11,3 +11,6 @@
 ```
 
 ### ASR-PRO 语音识别模块
+#### 引脚图
+![image](https://github.com/BluRay/mymcu/blob/main/twen51/ASR-PRO.jpg)
+
