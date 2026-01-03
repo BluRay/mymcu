@@ -8,9 +8,10 @@
 
 import tm1637
 from machine import Pin
+from time import sleep # 从 time 中加载 sleep
 tm = tm1637.TM1637(clk=Pin(5), dio=Pin(4))
 
-# 600S ����ʱ
+# 600S 倒计时
 i=600
 while(1):
     time = '%04d' % i
